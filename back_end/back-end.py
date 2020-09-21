@@ -13,7 +13,9 @@ def listar_cavalos():
     retorno = []
     for c in cavalos:
         retorno.append(c.json())
-        return jsonify(retorno)
+    resposta = jsonify(retorno)
+    resposta.headers.add("Access-Control-Allow-Origin", "*")
+    return resposta
 
 @app.route("/incluir_cavalo")
 def incluir_cavalo():
