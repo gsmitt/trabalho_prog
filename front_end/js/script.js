@@ -1,6 +1,6 @@
 $( document ).ready(function() {
 
-    $("#corpoDaPagina").removeClass("invisible");
+   $("#corpoDaPagina").removeClass("invisible");
 
     $("#link_listar").click(function(){
       $.ajax({
@@ -13,6 +13,17 @@ $( document ).ready(function() {
          }
       });
    });
+
+   $("#link_inicio").click(function () {
+
+      $("#tabelaCavalo").addClass("invisible");
+      $("#conteudoInicial").addClass("invisible");
+
+      $("#conteudoInicial").removeClass("invisible");
+
+  })
+
+
    function listar_cavalos(cavalos){
       
       linhas = ""
@@ -37,7 +48,47 @@ $( document ).ready(function() {
 
       // exibir tabela
 
-      $("#tabelaCavalo").removeClass("invisible")
-   
+      $("#tabelaCavalo").removeClass("invisible")   
    }
+   $("#btn_incluir").click(function () {
+      nome_cavalo = $("#nome_cavalo").val();
+      cor_cavalo = $("#cor_cavalo").val();
+      idade_cavalo = $("#idade_cavalo").val();
+      peso_cavalo = $("#peso_cavalo").val();
+      altura_cavalo = $("#altura_cavalo").val();
+
+      dados = JSON.stringify({
+         nome: nome_cavalo, 
+         cor: cor_cavalo, 
+         idade_em_dias: idade_cavalo, 
+         peso_em_gramas: peso_cavalo, 
+         altura_em_cm: altura_cavalo
+      });
+
+      $.ajax({
+         url: "http://localhost:5000/incluir_cavalo",
+         type: "POST",
+         contentType: "application/json",
+         dataType: "json",
+         data: dados,
+         success: incluirCavalo,
+         error: erroIncluirCavalo
+      })
+      function incluirCavalo(resposta){
+         if (resposta.resultado == "Ok"){
+            alert("Sucesso ao incluir o Cavalo");
+            $("#nome_cavalo").val("");
+            $("#cor_cavalo").val("");
+            $("#idade_cavalo").val("");
+            $("#peso_cavalo").val("");
+            $("#altura_cavalo").val("");
+      }  else {
+            alert("erro ao incluir o Cavalo")
+         }
+      }
+
+      function erroIncluirCavalo(resposta){
+         alert("Erro ao chamar o back-end")
+      }
+   })
 });

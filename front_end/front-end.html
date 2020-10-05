@@ -19,9 +19,9 @@
         <audio id="cavalo" src="media/horse.mp3"></audio>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <a class="nav-link nav-item" href="#">Início<span class="sr-only">(current)</span></a>
+            <a class="nav-link nav-item" href="#" id="link_inicio">Início<span class="sr-only">(current)</span></a>
             <a class="nav-link nav-item" href="#" id="link_listar">Listar</a>
-            <a class="nav-link nav-item" href="#">Incluir</a>
+            <a class="nav-link nav-item" href="#" data-toggle="modal" data-target="#exampleModal">Incluir</a>
           </ul>
         </div>
       </nav>
@@ -49,6 +49,57 @@
             -->
             </tbody>
           </table> 
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+
+                <h5 class="modal-title" id="exampleModalLabel">Novo Cavalo</h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+              
+                <form>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Nome:</label>
+                    <input type="text" class="form-control" id="nome_cavalo">
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="message-text" class="col-form-label">Cor:</label>
+                    <input type="text" class="form-control" id="cor_cavalo">
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="message-text" class="col-form-label">Idade (dias):</label>
+                    <input type="text" class="form-control" id="idade_cavalo">
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="message-text" class="col-form-label">Peso (Gramas):</label>
+                    <input type="text" class="form-control" id="peso_cavalo">
+                  </div>
+ 
+                  <div class="form-group">
+                    <label for="message-text" class="col-form-label">Altura (cm)</label>
+                    <input type="text" class="form-control" id="altura_cavalo">
+                  </div>
+                </form>
+                
+
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" id="btn_incluir">Incluir</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
     <!-- Optional JavaScript -->
