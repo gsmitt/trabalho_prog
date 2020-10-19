@@ -93,7 +93,8 @@ $( document ).ready(function() {
          alert("Erro ao chamar o back-end")
    
       }
-   })
+   });
+});
    function excluir_cavalo(id_cavalo) {
       console.log(id_cavalo);
       $.ajax({
@@ -101,8 +102,7 @@ $( document ).ready(function() {
           type: 'DELETE', 
           dataType: 'json', 
           data: JSON.stringify({ id_cavalo: id_cavalo}),
-          success: function(retorno){
-              
+          success: function(retorno){  
               if (retorno.resultado == "ok") { 
 
                   $("#linha_" + id_cavalo).fadeOut(1000, function () {
@@ -110,14 +110,13 @@ $( document ).ready(function() {
                       alert("Cavalo removido com sucesso!");
                   });
               } else {
-
                   alert(retorno.resultado + ":" + retorno.detalhes);
               }
-          }, // chama a função listar para processar o resultado
+          },
           error: erroAoExcluir
       });
    }
    function  erroAoExcluir (retorno) {
    alert("erro ao excluir dados, verifique o backend: ");
-   }     
-});
+   };     
+
