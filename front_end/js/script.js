@@ -29,13 +29,15 @@ $( document ).ready(function() {
       linhas = ""
       // montar linha
       for (var i in cavalos) {
-
-         lin = "<tr>" + 
-         "<th>" + cavalos[i].nome + "</th>" +
-         "<th>" + cavalos[i].cor + "</th>" +
-         "<th>" + cavalos[i].idade_em_dias + "</th>" +
-         "<th>" + cavalos[i].peso_em_gramas + "</th>" +
-         "<th>" + cavalos[i].altura_em_cm + "</th>"
+         lin = "<tr id='linha_" + cavalos[i].id+"'>" + 
+         "<td>" + cavalos[i].nome + "</td>" +
+         "<td>" + cavalos[i].cor + "</td>" +
+         "<td>" + cavalos[i].idade_em_dias + "</td>" +
+         "<td>" + cavalos[i].peso_em_gramas + "</td>" +
+         "<td>" + cavalos[i].altura_em_cm + "</td>" +
+         "<td><a href=# id='excluir_" + (cavalos[i].id) + "' " + 
+            "onClick='excluir_cavalo("+ cavalos[i].id + ")'"+
+            "class='excluir_cavalo'>Excluir</a>" +
          "</tr>";
          // inserir linha
          linhas = linhas + lin;
@@ -89,6 +91,33 @@ $( document ).ready(function() {
 
       function erroIncluirCavalo(resposta){
          alert("Erro ao chamar o back-end")
+   
       }
    })
+   function excluir_cavalo(id_cavalo) {
+      console.log(id_cavalo);
+      $.ajax({
+          url: 'http://localhost:5000/excluir_cavalo/' + id_cavalo,
+          type: 'DELETE', 
+          dataType: 'json', 
+          data: JSON.stringify({ id_cavalo: id_cavalo}),
+          success: function(retorno){
+              
+              if (retorno.resultado == "ok") { 
+
+                  $("#linha_" + id_cavalo).fadeOut(1000, function () {
+
+                      alert("Cavalo removido com sucesso!");
+                  });
+              } else {
+
+                  alert(retorno.resultado + ":" + retorno.detalhes);
+              }
+          }, // chama a função listar para processar o resultado
+          error: erroAoExcluir
+      });
+   }
+   function  erroAoExcluir (retorno) {
+   alert("erro ao excluir dados, verifique o backend: ");
+   }     
 });

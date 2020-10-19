@@ -13,11 +13,12 @@ class Cavalo(db.Model):
          str(self.altura_em_cm)
     def json(self):
         return {
+        "id": self.id,
         "nome" : self.nome,
         "cor" : self.cor,
-        "idade_em_dias" : int(self.idade_em_dias),
-        "peso_em_gramas" : int(self.peso_em_gramas),
-        "altura_em_cm" : int(self.altura_em_cm)
+        "idade_em_dias" : self.idade_em_dias,
+        "peso_em_gramas" : self.peso_em_gramas,
+        "altura_em_cm" : self.altura_em_cm
         }
 
 if __name__ == "__main__":
