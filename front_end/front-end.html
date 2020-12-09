@@ -20,7 +20,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <a class="nav-link nav-item" href="#" id="link_inicio">Início<span class="sr-only">(current)</span></a>
-            <a class="nav-link nav-item" href="#" id="link_listar">Listar</a>
+            <a class="nav-link nav-item" href="#" id="link_listar_cavalos">Listar Cavalos</a>
+            <a class="nav-link nav-item" href="#" id="link_listar_donos">Listar Donos</a>
+            <a class="nav-link nav-item" href="#" id="link_listar_estabulos">Listar Estábulos</a>
             <a class="nav-link nav-item" href="#" data-toggle="modal" data-target="#exampleModal">Incluir</a>
           </ul>
         </div>
@@ -35,11 +37,34 @@
                 <th scope="col">Idade (Dias)</th>
                 <th scope="col">Peso (Gramas)</th>
                 <th scope="col">Altura (cm)</th>
+                <th scope="col">Nome do Dono</th>
+                <th scope="col">Se Encontra Em:</th>
                 <th scope="col">Operações</th>
               </tr>
             </thead>
             <tbody id="corpoTabelaCavalo">
-            <!--
+
+        <table id="tabelaDono" class="table invisible">
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Telefone</th>
+                <th scope="col">Email</th>
+                <th scope="col">Operações</th>
+              </tr>
+            </thead>
+            <tbody id="corpoTabelaDono">
+            
+        <table id="tabelaEstabulo" class="table invisible">
+            <thead>
+              <tr>
+                <th scope="col">Código</th>
+                <th scope="col">Endereço</th>
+                <th scope="col">Operações</th>
+              </tr>
+            </thead>
+            <tbody id="corpoTabelaEstabulo">            
+              <!--
               <tr>
                 <th scope="row">1</th>
                 <td></td>

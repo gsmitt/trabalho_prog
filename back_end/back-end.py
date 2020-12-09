@@ -1,5 +1,5 @@
 from config import *
-from cavalo import Cavalo
+from cavalo import Cavalo, Dono, Estabulo
 
 @app.route("/")
 def padrao():
@@ -35,5 +35,26 @@ def excluir_cavalo(cavalo_id):
     
     resposta.headers.add("Access-Control-Allow-Origin", "*")
     return resposta
+
+@app.route("/listar_donos")
+def listar_donos():
+    donos = db.session.query(Dono).all()
+    retorno = []
+    for d in donos:
+        retorno.append(d.json())
+    resposta = jsonify(retorno)
+    resposta.headers.add("Access-Control-Allow-Origin", "*")
+    return resposta
+
+@app.route("/listar_estabulos")
+def listar_estabulos():
+    estabulos = db.session.query(Estabulo).all()
+    retorno = []
+    for e in estabulos:
+        retorno.append(e.json())
+    resposta = jsonify(retorno)
+    resposta.headers.add("Access-Control-Allow-Origin", "*")
+    return resposta
+
 
 app.run(debug=True)

@@ -15,20 +15,9 @@ class Dono(db.Model):
             "telefone" : self.telefone,
             "email" : self.email
         }
-"""
-if __name__ == "__main__": #teste dono
-    db.create_all()
-    novo = Dono(dono_nome = "Carlos", telefone = "(99) 99999-9999", email = "teste@teste.com")
-    print(novo.telefone)
-    db.session.add(novo)
-    db.session.commit()
-    todos = db.session.query(Dono).all()
-    print(todos)
 
-    for c in todos:
-        print(c)
-        print(c.json())
-"""
+
+
 class Estabulo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     codigo = db.Column(db.String(254))
@@ -42,20 +31,9 @@ class Estabulo(db.Model):
             "codigo" : self.codigo,
             "endereco" : self.endereco
         }
-"""
-if __name__ == "__main__": #teste estabulo
-    db.create_all()
-    novo = Estabulo(codigo = "6B9A", endereco = "Rua Exemplo, 123")
-    print(novo.codigo)
-    db.session.add(novo)
-    db.session.commit()
-    todos = db.session.query(Estabulo).all()
-    print(todos)
 
-    for c in todos:
-        print(c)
-        print(c.json())
-"""
+
+
 class Cavalo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(254))
@@ -70,9 +48,9 @@ class Cavalo(db.Model):
     def __str__(self):
         s = f"{self.nome}, {self.cor}, {str(self.idade_em_dias)} dias, {str(self.peso_em_gramas)} gramas, {str(self.altura_em_cm)} cm"
         if self.dono != None:
-            s += f", cavalo de {self.dono_nome}"
+            s += f", cavalo de {self.dono.dono_nome}"
         if self.estabulo != None:
-            s += f"alojado no estábulo {self.codigo}"
+            s += f"alojado no estábulo {self.estabulo.codigo}"
         return s
 
     def json(self):
@@ -83,9 +61,9 @@ class Cavalo(db.Model):
             email = ""
         else: # o cavalo tem dono
             dono_id = self.dono_id
-            dono_nome = self.dono_nome
-            telefone = self.telefone
-            email = self.email
+            dono_nome = self.dono.dono_nome
+            telefone = self.dono.telefone
+            email = self.dono.email
 
         if self.estabulo is None: # o cavalo não está alojado em um estábulo
             estabulo_id = ""
@@ -93,8 +71,8 @@ class Cavalo(db.Model):
             endereco = ""
         else: # o cavalo está alojado em um estábulo
             estabulo_id = self.estabulo_id
-            codigo = self.codigo
-            endereco = self.endereco
+            codigo = self.estabulo.codigo
+            endereco = self.estabulo.endereco
 
         return {
         "id": self.id,
@@ -104,27 +82,47 @@ class Cavalo(db.Model):
         "peso_em_gramas" : self.peso_em_gramas,
         "altura_em_cm" : self.altura_em_cm,
         "dono_id" : self.dono_id,
-        "dono_nome" : self.dono_nome,
-        "telefone" : self.telefone,
-        "email" : self.email,
+        "dono" : self.dono.json(),
         "estabulo_id" : self.estabulo_id,
-        "codigo" : self.codigo,
-        "endereco" : self.endereco
+        "estabulo" : self.estabulo.json()
         }
 
-'''
-if __name__ == "__main__": #teste cavalo
-    db.create_all()
-    novo = Cavalo(nome = "Jorje", cor = "Marrom", idade_em_dias = 2469,
-     peso_em_gramas= 177013, altura_em_cm = 40028922)
-    print (novo.cor)
-    db.session.add(novo)
-    db.session.commit()
-    todos = db.session.query(Cavalo).all()
-    print(todos)
 
-    for c in todos:
+if __name__ == "__main__": 
+
+    db.create_all()
+    novo_dono = Dono(dono_nome = "Carlos", telefone = "(99) 99999-9999", email = "teste@teste.com")
+    print(novo_dono.telefone)
+
+    novo_estabulo = Estabulo(codigo = "6B9A", endereco = "Rua Exemplo, 123")
+    print(novo_estabulo.codigo)
+    
+    novo_cavalo = Cavalo(nome = "Jorje", cor = "Marrom", idade_em_dias = 2469,
+     peso_em_gramas= 177013, altura_em_cm = 40028922, dono = novo_dono, estabulo = novo_estabulo)
+    print (novo_cavalo.cor)
+    
+    db.session.add(novo_dono)
+    db.session.add(novo_estabulo)
+    db.session.add(novo_cavalo)
+    
+    db.session.commit()
+    
+    lista_donos = db.session.query(Dono).all()
+    lista_estabulos = db.session.query(Estabulo).all()
+    lista_cavalos = db.session.query(Cavalo).all()
+    print(lista_donos)
+    print(lista_estabulos)
+    print(lista_cavalos)
+    
+    for c in lista_donos:
         print(c)
         print(c.json())
-'''
 
+    for c in lista_estabulos:
+        print(c)
+        print(c.json())
+
+
+    for c in lista_cavalos:
+        print(c)
+        print(c.json())
